@@ -60,11 +60,11 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
           <Grid container spacing={2}>
-            <Grid xs={12}>
+            <Grid size={{ xs: 12 }}>
               <CustomTextField name="email" label="Correo" type="text" autoFocus register={register} errors={errors} />
             </Grid>
 
-            <Grid xs={12}>
+            <Grid size={{ xs: 12 }}>
               <CustomTextField name="password" label="Contraseña" type="password" register={register} errors={errors} />
             </Grid>
           </Grid>
