@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx", // Habilita JSX compatible con React 17+
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@pages/*": ["pages/*"],
+      "@utils/*": ["utils/*"],
+      "@hooks/*": ["hooks/*"],
+      "@store/*": ["store/*"],
+      "@router/*": ["router/*"],
+      "@shared/*": ["shared/*"],
+      "@models/*": ["models/*"],
+      "@feature/*": ["feature/*"],
+      "@services/*": ["services/*"],
+      "@components/*": ["components/*"],
+      "@containers/*": ["containers/*"],
+      "@infrastructure/*": ["infrastructure/*"]
+    }
+  }
+}
