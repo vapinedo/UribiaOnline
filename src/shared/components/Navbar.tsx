@@ -1,3 +1,4 @@
+import { APP_NAME } from '@shared/constants/config';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@core/stores/useAuthStore';
 import { toastError } from '@infrastructure/notifications/notificationAdapter';
@@ -30,7 +31,7 @@ export default function Navbar() {
     >
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          Resume Builder
+          {APP_NAME}
         </NavLink>
 
         <button
