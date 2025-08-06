@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAuthStore } from '@core/stores/useAuthStore';
+import { useAuthStore } from '@feature/auth/stores/useAuthStore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseApp } from '@infra/firebase/firebaseConfig';
 

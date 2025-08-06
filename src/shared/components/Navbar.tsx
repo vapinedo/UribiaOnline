@@ -1,6 +1,6 @@
 import { APP_NAME } from '@shared/constants/config';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@core/stores/useAuthStore';
+import { useAuthStore } from '@feature/auth/stores/useAuthStore';
 import { toastError } from '@infra/ui/notifications/toast/toastAdapter';
 
 const navLinks = [

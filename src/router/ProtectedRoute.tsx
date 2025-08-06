@@ -1,6 +1,6 @@
 import { ComponentType } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuthStore } from '@core/stores/useAuthStore';
+import { useAuthStore } from '@feature/auth/stores/useAuthStore';
 
 interface ProtectedRouteProps {
   Component: ComponentType<any>;

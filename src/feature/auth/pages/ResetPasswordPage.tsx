@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import BoxShadow from '@shared/components/BoxShadow';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FieldErrors } from 'react-hook-form';
-import { useAuthStore } from '@core/stores/useAuthStore';
+import { useAuthStore } from '@feature/auth/stores/useAuthStore';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { ResetPasswordFormValues } from '@feature/auth/models/ResetPasswordFormValues';
 import { toastError, toastSuccess } from 'infra/ui/notifications/toast/toastAdapter';
