@@ -1,9 +1,9 @@
 import { Button } from '@mui/material';
-import { Barrio } from '@core/models/Barrio';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import BoxShadow from '@shared/components/BoxShadow';
+import { Barrio } from '@feature/barrio/models/Barrio';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useCountries } from '@shared/hooks/useCountries';
 import { useMunicipios } from '@shared/hooks/useMunicipios';
@@ -11,7 +11,7 @@ import { AutoGridRow } from '@shared/components/AutoGridRow';
 import { useDepartamentos } from '@shared/hooks/useDepartamentos';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import BarrioService from '@infrastructure/repositories/barrioRepository';
-import { useCrearBarrio, useActualizarBarrio } from '@core/hooks/useBarrio';
+import { useCrearBarrio, useActualizarBarrio } from '@feature/barrio/hooks/useBarrio';
 
 type BarrioFormProps = {
   modo: 'crear' | 'editar';

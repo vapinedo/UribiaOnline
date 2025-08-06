@@ -1,4 +1,4 @@
-import { Barrio } from '@core/models/Barrio';
+import { Barrio } from '@feature/barrio/models/Barrio';
 import { useFirestoreCrud } from '@core/hooks/useFirestoreCrud';
 
 const barrioCrud = () => useFirestoreCrud<Barrio>('barrios');

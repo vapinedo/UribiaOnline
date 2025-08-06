@@ -1,7 +1,7 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import AdminTable from '@shared/components/AdminTable';
-import { useEliminarBarrio, useListarBarrios } from '@core/hooks/useBarrio';
+import { useEliminarBarrio, useListarBarrios } from '@feature/barrio/hooks/useBarrio';
 
 export default function BarriosAdminPage() {
   const navigate = useNavigate();
