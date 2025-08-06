@@ -1,2 +1,2 @@
 export * from './Resume';
-export * from './Persona';
+export * from './Barrio';
