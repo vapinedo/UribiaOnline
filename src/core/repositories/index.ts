@@ -1,1 +1,1 @@
-export * from './PersonaRepository';
+export * from './BarrioRepository';

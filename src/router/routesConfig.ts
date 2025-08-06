@@ -1,7 +1,7 @@
 import { lazyImport } from '@shared/utils/lazyImport';
 
 const LoginPage = lazyImport(() => import('@feature/auth/pages/LoginPage'));
-const PersonasRouter = lazyImport(() => import('@feature/persona/PersonaRouter'));
+const BarrioRouter = lazyImport(() => import('@feature/barrio/BarrioRouter'));
 const RegisterPage = lazyImport(() => import('@feature/auth/pages/RegisterPage'));
 const DashboardPage = lazyImport(() => import('@feature/dashboard/pages/DashboardPage'));
 const ResetPasswordPage = lazyImport(() => import('@feature/auth/pages/ResetPasswordPage'));
@@ -34,8 +34,8 @@ export const appRoutes: AppRoute[] = [
     isPrivate: true,
   },
   {
-    path: '/personas/*',
-    Component: PersonasRouter,
+    path: '/barrios/*',
+    Component: BarrioRouter,
     isPrivate: true,
   },
 ];

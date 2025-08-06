@@ -5,7 +5,7 @@ import { toastError } from '@infrastructure/notifications/notificationAdapter';
 
 const navLinks = [
   { to: '/', label: 'Inicio' },
-  { to: '/personas', label: 'Personas' },
+  { to: '/barrios', label: 'Barrios' },
 ];
 
 export default function Navbar() {
