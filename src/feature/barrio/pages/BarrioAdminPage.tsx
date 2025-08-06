@@ -1,7 +1,8 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import AdminTable from '@shared/components/AdminTable';
-import { useEliminarBarrio, useListarBarrios } from '@core/hooks/useBarrio';
+import { barrioConfig } from '@feature/barrio/BarrioConfig';
+import { useEliminarBarrio, useListarBarrios } from '@feature/barrio/hooks/useBarrio';
 
 export default function BarriosAdminPage() {
   const navigate = useNavigate();
@@ -15,11 +16,11 @@ export default function BarriosAdminPage() {
       data={barrios}
       columns={columns}
       loading={isLoading}
-      title="Gestión de Barrios"
-      createRoute="/barrios/nuevo"
+      title={barrioConfig.title}
+      createRoute={barrioConfig.routePath + '/nuevo'}
       onDelete={(row) => eliminarBarrio.mutate(row.id)}
-      onEdit={(row) => navigate(`/barrios/editar/${row.id}`)}
-      confirmDeleteMessage={(row) => `¿Deseas eliminar el barrio ${row.nombre}?`}
+      onEdit={(row) => navigate(`${barrioConfig.routePath}/editar/${row.id}`)}
+      confirmDeleteMessage={(row) => barrioConfig.deleteMessage(row.nombre)}
     />
   );
 }

@@ -1,17 +1,18 @@
 import { Button } from '@mui/material';
-import { Barrio } from '@core/models/Barrio';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import BoxShadow from '@shared/components/BoxShadow';
+import { Barrio } from '@feature/barrio/models/Barrio';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useCountries } from '@shared/hooks/useCountries';
+import { barrioConfig } from '@feature/barrio/BarrioConfig';
 import { useMunicipios } from '@shared/hooks/useMunicipios';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
 import { useDepartamentos } from '@shared/hooks/useDepartamentos';
 import { CustomTextField } from '@shared/components/CustomTextField';
-import BarrioService from '@infrastructure/repositories/barrioRepository';
-import { useCrearBarrio, useActualizarBarrio } from '@core/hooks/useBarrio';
+import { barrioRepository } from '@feature/barrio/repositories/barrioRepository';
+import { useCrearBarrio, useActualizarBarrio } from '@feature/barrio/hooks/useBarrio';
 
 type BarrioFormProps = {
   modo: 'crear' | 'editar';
@@ -31,7 +32,7 @@ export default function BarrioForm({ modo, barrioId }: BarrioFormProps) {
 
   const { data: barrioEditando, isLoading: cargandoBarrio } = useQuery({
     queryKey: ['barrio', barrioId],
-    queryFn: () => BarrioService.obtenerPorId(barrioId!),
+    queryFn: () => barrioRepository.obtenerPorId(barrioId!),
     enabled: modo === 'editar' && !!barrioId,
   });
 
@@ -84,7 +85,7 @@ export default function BarrioForm({ modo, barrioId }: BarrioFormProps) {
   return (
     <BoxShadow>
       <header className="mb-4 d-flex justify-content-between align-items-center">
-        <h2>{modo === 'crear' ? 'Nuevo barrio' : 'Editar barrio'}</h2>
+        <h2>{modo === 'crear' ? barrioConfig.createTitle : barrioConfig.editTitle}</h2>
       </header>
 
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>

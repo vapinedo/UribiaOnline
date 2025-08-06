@@ -5,10 +5,10 @@ import BoxShadow from '@shared/components/BoxShadow';
 import type { SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FieldErrors } from 'react-hook-form';
-import { useAuthStore } from '@core/stores/useAuthStore';
+import { useAuthStore } from '@feature/auth/stores/useAuthStore';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { RegisterFormValues } from '@feature/auth/models/RegisterFormValues';
-import { toastError, toastSuccess } from '@infrastructure/notifications/notificationAdapter';
+import { toastError, toastSuccess } from 'infra/ui/notifications/toast/toastAdapter';
 
 const defaultValues: RegisterFormValues = {
   name: '',

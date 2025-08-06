@@ -1,7 +1,7 @@
 import { v4 as createUuid } from 'uuid';
-import firebaseConfig from '@infrastructure/firebase/firebaseConfig';
+import firebaseConfig from '@infra/firebase/firebaseConfig';
 import type { WithFieldValue, DocumentData } from 'firebase/firestore';
-import { toastSuccess, toastError } from '@infrastructure/notifications/notificationAdapter';
+import { toastSuccess, toastError } from '@infra/ui/notifications/toast/toastAdapter';
 import { ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from 'firebase/storage';
 import { doc, getDocs, getDoc, setDoc, collection, runTransaction, deleteDoc } from 'firebase/firestore';
 
@@ -9,7 +9,7 @@ const { db, storage } = firebaseConfig;
 
 type WithImages<T> = T & { imagenURLs?: string[] };
 
-export default function makeFirestoreRepository<T extends WithFieldValue<DocumentData>>(COLLECTION: string) {
+export default function createFirestoreRepository<T extends WithFieldValue<DocumentData>>(COLLECTION: string) {
   const getAllDocuments = async (): Promise<T[]> => {
     const documents: T[] = [];
     try {

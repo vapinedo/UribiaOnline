@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useAuthStore } from '@core/stores/useAuthStore';
+import { useAuthStore } from '@feature/auth/stores/useAuthStore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { firebaseApp } from '@infrastructure/firebase/firebaseConfig';
+import { firebaseApp } from '@infra/firebase/firebaseConfig';
 
 export function useInitializeAuth() {
   const setUser = useAuthStore((state) => state.setUser);
