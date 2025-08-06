@@ -5,7 +5,6 @@ export interface Propiedad {
   tipo: select;
   operacion: select;
   precio: number;
-  moneda: select;
   area: number;
   habitaciones?: number;
   banos?: number;
