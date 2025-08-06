@@ -1,9 +1,9 @@
 import type { WithFieldValue, DocumentData } from 'firebase/firestore';
-import { useFirestoreCrud } from '@infrastructure/hooks/useFirestoreCrud';
-import makeFirestoreRepository from '@infrastructure/repositories/makeFirestoreRepository';
+import { useFirestoreCrud } from '@infrastructure/firebase/hooks/useFirestoreCrud';
+import createFirestoreRepository from '@infrastructure/firebase/factories/createFirestoreRepository';
 
 export function createFeatureRepository<T extends WithFieldValue<DocumentData>>(collectionName: string) {
-  const repository = makeFirestoreRepository<T>(collectionName);
+  const repository = createFirestoreRepository<T>(collectionName);
 
   return {
     repository,

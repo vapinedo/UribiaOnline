@@ -7,7 +7,7 @@ import { useForm, FieldErrors } from 'react-hook-form';
 import { useAuthStore } from '@core/stores/useAuthStore';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { ResetPasswordFormValues } from '@feature/auth/models/ResetPasswordFormValues';
-import { toastError, toastSuccess } from '@infrastructure/notifications/notificationAdapter';
+import { toastError, toastSuccess } from '@infrastructure/ui/notifications/toast/toastAdapter';
 
 const defaultValues: ResetPasswordFormValues = {
   email: '',

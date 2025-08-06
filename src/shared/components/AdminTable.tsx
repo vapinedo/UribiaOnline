@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import BoxShadow from '@shared/components/BoxShadow';
-import { dialogConfirm } from '@infrastructure/notifications/notificationAdapter';
+import { dialogConfirm } from '@infrastructure/ui/notifications/dialogs/dialogAdapter';
 import { DataGrid, GridColDef, GridToolbar, GridValidRowModel } from '@mui/x-data-grid';
 
 interface AdminTableProps<T extends GridValidRowModel> {
