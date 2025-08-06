@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { User } from 'firebase/auth';
-import { AuthRepository } from '@infrastructure/firebase/repositories/AuthRepository';
-import { toastError } from '@infrastructure/ui/notifications/toast/toastAdapter';
+import { AuthRepository } from '@infra/firebase/repositories/AuthRepository';
+import { toastError } from '@infra/ui/notifications/toast/toastAdapter';
 
 interface AuthState {
   loading: boolean;

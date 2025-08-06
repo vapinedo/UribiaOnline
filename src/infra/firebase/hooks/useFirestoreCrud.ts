@@ -1,6 +1,6 @@
 import type { WithFieldValue, DocumentData } from 'firebase/firestore';
 import { DEFAULT_STALE_TIME } from '@shared/constants/reactQuery.config';
-import createFirestoreRepository from '@infrastructure/firebase/factories/createFirestoreRepository';
+import createFirestoreRepository from '@infra/firebase/factories/createFirestoreRepository';
 import { useQuery, useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
 
 export function useFirestoreCrud<T extends WithFieldValue<DocumentData>>(collectionName: string) {

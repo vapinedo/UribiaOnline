@@ -8,7 +8,7 @@ import { useForm, FieldErrors } from 'react-hook-form';
 import { useAuthStore } from '@core/stores/useAuthStore';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { RegisterFormValues } from '@feature/auth/models/RegisterFormValues';
-import { toastError, toastSuccess } from '@infrastructure/ui/notifications/toast/toastAdapter';
+import { toastError, toastSuccess } from 'infra/ui/notifications/toast/toastAdapter';
 
 const defaultValues: RegisterFormValues = {
   name: '',

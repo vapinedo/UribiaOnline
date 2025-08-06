@@ -23,7 +23,7 @@
       "@services/*": ["services/*"],
       "@components/*": ["components/*"],
       "@containers/*": ["containers/*"],
-      "@infrastructure/*": ["infrastructure/*"]
+      "@infra/*": ["infra/*"]
     }
   }
 }

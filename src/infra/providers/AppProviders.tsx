@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactQueryProvider } from '@infrastructure/state/react-query/providers/QueryClientProvider';
-import { MuiLocalizationProvider } from '@infrastructure/ui/mui/providers/LocalizationProvider';
+import { ReactQueryProvider } from '@infra/providers/QueryClientProvider';
+import { MuiLocalizationProvider } from '@infra/providers/LocalizationProvider';
 
 export const AppProviders = ({ children }: { children: React.ReactNode }) => {
   return (

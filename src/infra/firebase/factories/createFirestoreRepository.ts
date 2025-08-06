@@ -1,7 +1,7 @@
 import { v4 as createUuid } from 'uuid';
-import firebaseConfig from '@infrastructure/firebase/firebaseConfig';
+import firebaseConfig from '@infra/firebase/firebaseConfig';
 import type { WithFieldValue, DocumentData } from 'firebase/firestore';
-import { toastSuccess, toastError } from '@infrastructure/ui/notifications/toast/toastAdapter';
+import { toastSuccess, toastError } from '@infra/ui/notifications/toast/toastAdapter';
 import { ref, uploadBytesResumable, getDownloadURL, listAll, deleteObject } from 'firebase/storage';
 import { doc, getDocs, getDoc, setDoc, collection, runTransaction, deleteDoc } from 'firebase/firestore';
 

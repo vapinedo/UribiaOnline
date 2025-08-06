@@ -7,7 +7,7 @@ import { FieldErrors, useForm } from 'react-hook-form';
 import { useAuthStore } from '@core/stores/useAuthStore';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { LoginFormValues } from '@feature/auth/models/LoginFormValues';
-import { toastError } from '@infrastructure/ui/notifications/toast/toastAdapter';
+import { toastError } from 'infra/ui/notifications/toast/toastAdapter';
 
 const defaultValues: LoginFormValues = {
   email: '',

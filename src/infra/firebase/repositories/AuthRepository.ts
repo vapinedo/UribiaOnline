@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { firebaseApp } from '@infrastructure/firebase/firebaseConfig';
+import { firebaseApp } from '@infra/firebase/firebaseConfig';
 
 const auth = getAuth(firebaseApp);
 
