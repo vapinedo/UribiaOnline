@@ -10,7 +10,7 @@ import { useMunicipios } from '@shared/hooks/useMunicipios';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
 import { useDepartamentos } from '@shared/hooks/useDepartamentos';
 import { CustomTextField } from '@shared/components/CustomTextField';
-import BarrioService from '@infrastructure/repositories/barrioRepository';
+import { barrioRepository } from '@feature/barrio/repositories/barrioRepository';
 import { useCrearBarrio, useActualizarBarrio } from '@feature/barrio/hooks/useBarrio';
 
 type BarrioFormProps = {
@@ -31,7 +31,7 @@ export default function BarrioForm({ modo, barrioId }: BarrioFormProps) {
 
   const { data: barrioEditando, isLoading: cargandoBarrio } = useQuery({
     queryKey: ['barrio', barrioId],
-    queryFn: () => BarrioService.obtenerPorId(barrioId!),
+    queryFn: () => barrioRepository.obtenerPorId(barrioId!),
     enabled: modo === 'editar' && !!barrioId,
   });
 

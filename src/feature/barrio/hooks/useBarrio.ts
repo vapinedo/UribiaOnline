@@ -1,10 +1,7 @@
-import { Barrio } from '@feature/barrio/models/Barrio';
-import { useFirestoreCrud } from '@core/hooks/useFirestoreCrud';
+import { useList, useCreate, useUpdate, useDelete, useGetById } from '@feature/barrio/repositories/barrioRepository';
 
-const barrioCrud = () => useFirestoreCrud<Barrio>('barrios');
-
-export const useListarBarrios = () => barrioCrud().useListar();
-export const useCrearBarrio = (opts?: any) => barrioCrud().useCrear(opts);
-export const useActualizarBarrio = (opts?: any) => barrioCrud().useActualizar(opts);
-export const useEliminarBarrio = (opts?: any) => barrioCrud().useEliminar(opts);
-export const useBarrioPorId = (id: string) => barrioCrud().useObtenerPorId(id);
+export const useListarBarrios = useList;
+export const useCrearBarrio = useCreate;
+export const useActualizarBarrio = useUpdate;
+export const useEliminarBarrio = useDelete;
+export const useBarrioPorId = useGetById;
