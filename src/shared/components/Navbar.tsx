@@ -5,7 +5,7 @@ import { toastError } from '@infra/ui/notifications/toast/toastAdapter';
 
 const navLinks = [
   { to: '/', label: 'Inicio' },
-  { to: '/barrios', label: 'Barrios' },
+  // { to: '/barrios', label: 'Barrios' },
   // { to: '/formato-rpp', label: 'Formato RPP' },
   { to: '/fundaciones', label: 'Fundaciones' },
 ];
