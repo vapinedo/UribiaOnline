@@ -1,5 +1,5 @@
 import React from 'react';
-import MaskedInput from 'react-text-mask';
+// import MaskedInput from 'react-text-mask';
 import { Controller, Control } from 'react-hook-form';
 import { TextField, TextFieldProps } from '@mui/material';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
@@ -40,39 +40,40 @@ const CustomCurrencyInput: React.FC<CustomCurrencyInputProps> = ({
   parseToNumber = false,
   ...rest
 }) => {
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { onChange, value, ref, ...fieldRest } }) => (
-        <MaskedInput
-          mask={currencyMask}
-          value={value}
-          onChange={(e) => {
-            const rawValue = e.target.value;
-            if (parseToNumber) {
-              const numericValue = parseCurrencyToNumber(rawValue);
-              onChange(numericValue);
-            } else {
-              onChange(rawValue);
-            }
-          }}
-          render={(inputRef, props) => (
-            <TextField
-              {...props}
-              {...rest}
-              fullWidth
-              label={label}
-              inputRef={inputRef}
-              error={!!helperText}
-              helperText={helperText}
-              {...fieldRest}
-            />
-          )}
-        />
-      )}
-    />
-  );
+  // return (
+  //   <Controller
+  //     name={name}
+  //     control={control}
+  //     render={({ field: { onChange, value, ref, ...fieldRest } }) => (
+  //       <MaskedInput
+  //         mask={currencyMask}
+  //         value={value}
+  //         onChange={(e) => {
+  //           const rawValue = e.target.value;
+  //           if (parseToNumber) {
+  //             const numericValue = parseCurrencyToNumber(rawValue);
+  //             onChange(numericValue);
+  //           } else {
+  //             onChange(rawValue);
+  //           }
+  //         }}
+  //         render={(inputRef, props) => (
+  //           <TextField
+  //             {...props}
+  //             {...rest}
+  //             fullWidth
+  //             label={label}
+  //             inputRef={inputRef}
+  //             error={!!helperText}
+  //             helperText={helperText}
+  //             {...fieldRest}
+  //           />
+  //         )}
+  //       />
+  //     )}
+  //   />
+  // );
+  return <input type="text" />;
 };
 
 export default CustomCurrencyInput;
