@@ -21,7 +21,7 @@ export const AutoGridRow: React.FC<AutoGridRowProps> = ({ children, spacing = 2,
   return (
     <Grid container spacing={spacing} sx={{ mb: rowSpacing }}>
       {React.Children.map(children, (child, index) => (
-        <Grid key={index} item xs={12} sm={columnSize}>
+        <Grid key={index} size={{ xs: 12, sm: columnSize }}>
           {child}
         </Grid>
       ))}

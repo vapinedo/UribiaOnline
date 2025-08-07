@@ -31,6 +31,7 @@ export function CustomTextField<T extends FieldValues>({
       helperText={errorMessage}
       error={!!errorMessage}
       {...fieldRegister}
+      autoComplete="off"
     />
   );
 }
