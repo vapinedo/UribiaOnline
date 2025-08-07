@@ -2,6 +2,7 @@ import { lazyImport } from '@shared/utils/lazyImport';
 
 const LoginPage = lazyImport(() => import('@feature/auth/pages/LoginPage'));
 const BarrioRouter = lazyImport(() => import('@feature/barrio/BarrioRouter'));
+const ResumeRouter = lazyImport(() => import('@feature/resume/ResumeRouter'));
 const RegisterPage = lazyImport(() => import('@feature/auth/pages/RegisterPage'));
 const FundacionRouter = lazyImport(() => import('@feature/fundacion/FundacionRouter'));
 const FormatoRPPRouter = lazyImport(() => import('@feature/formatoRPP/FormatoRPPRouter'));
@@ -48,6 +49,11 @@ export const appRoutes: AppRoute[] = [
   {
     path: '/fundaciones/*',
     Component: FundacionRouter,
+    isPrivate: true,
+  },
+  {
+    path: '/resumes/*',
+    Component: ResumeRouter,
     isPrivate: true,
   },
 ];

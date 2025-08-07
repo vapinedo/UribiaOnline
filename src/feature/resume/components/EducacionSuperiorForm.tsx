@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Resume } from '@core/models/Resume';
-import { AutoGridRow } from '@components/AutoGridRow';
-import { CustomSelect } from '@components/CustomSelect';
 import TitledSection from '@shared/components/TitledSection';
-import { CustomTextField } from '@components/CustomTextField';
-import { CustomDatePicker } from '@components/CustomDatePicker';
+import { AutoGridRow } from '@shared/components/AutoGridRow';
+import { CustomSelect } from '@shared/components/CustomSelect';
+import { CustomTextField } from '@shared/components/CustomTextField';
+import { CustomDatePicker } from '@shared/components/CustomDatePicker';
 import { modalidadAcademicaOptions, siNoOptions } from '@core/constants/dropdownOptions';
 import { Control, FieldErrors, UseFormWatch, UseFormSetValue, UseFormRegister, useFieldArray } from 'react-hook-form';
 
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const EducacionSuperiorForm: React.FC<Props> = (props) => {
-  const { control, errors, register, setValue, watch } = props;
+  const { control, errors, register } = props;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'educacionSuperior',
@@ -47,10 +47,8 @@ export const EducacionSuperiorForm: React.FC<Props> = (props) => {
           <AutoGridRow spacing={2} rowSpacing={2}>
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               label="Modalidad Académica"
               options={modalidadAcademicaOptions}
               name={`educacionSuperior.${index}.modalidadAcademica`}
@@ -64,10 +62,8 @@ export const EducacionSuperiorForm: React.FC<Props> = (props) => {
             />
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               label="Graduado"
               options={siNoOptions}
               name={`educacionSuperior.${index}.graduado`}
@@ -93,7 +89,6 @@ export const EducacionSuperiorForm: React.FC<Props> = (props) => {
               required
               errors={errors}
               control={control}
-              register={register}
               label="Fecha de Graduación"
               name={`educacionSuperior.${index}.fechaGrado`}
             />

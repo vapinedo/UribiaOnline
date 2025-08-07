@@ -1,3 +1,4 @@
+import '@shared/components/Navbar/Navbar.css';
 import { APP_NAME } from '@shared/constants/config';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@feature/auth/stores/useAuthStore';
@@ -8,7 +9,10 @@ const navLinks = [
   { to: '/fundaciones', label: 'Fundaciones' },
   {
     label: 'Formatos',
-    children: [{ to: '/formato-rpp', label: 'Formato RPP - ICBF' }],
+    children: [
+      { to: '/formato-rpp', label: 'Formato RPP - ICBF' },
+      { to: '/resumes', label: 'Formato Unico Hoja de Vida' },
+    ],
   },
 ];
 
@@ -65,7 +69,7 @@ export default function Navbar() {
                   >
                     {item.label}
                   </a>
-                  <ul className="dropdown-menu" aria-labelledby={`dropdown-${item.label}`}>
+                  <ul className="dropdown-menu custom-navbar-dropdown" aria-labelledby={`dropdown-${item.label}`}>
                     {item.children.map((child) => (
                       <li key={child.to}>
                         <NavLink className="dropdown-item" to={child.to}>

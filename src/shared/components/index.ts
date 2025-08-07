@@ -9,5 +9,5 @@ export * from './CustomTextField';
 export * from './FormButtons';
 export * from './IconSVG';
 export * from './ImageUploader';
-export * from './Navbar';
+export * from './Navbar/Navbar';
 export * from './TitledSection';

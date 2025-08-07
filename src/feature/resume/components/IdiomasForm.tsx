@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Resume } from '@core/models/Resume';
-import { AutoGridRow } from '@components/AutoGridRow';
-import { CustomSelect } from '@components/CustomSelect';
+import { AutoGridRow } from '@shared/components/AutoGridRow';
 import TitledSection from '@shared/components/TitledSection';
-import { CustomTextField } from '@components/CustomTextField';
+import { CustomSelect } from '@shared/components/CustomSelect';
 import { idiomaOptions } from '@core/constants/dropdownOptions';
+import { CustomTextField } from '@shared/components/CustomTextField';
 import { Control, FieldErrors, UseFormWatch, UseFormSetValue, UseFormRegister, useFieldArray } from 'react-hook-form';
 
 const MAX_IDIOMAS = 2;
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const IdiomasForm: React.FC<Props> = (props) => {
-  const { control, errors, register, setValue, watch } = props;
+  const { control, errors, register } = props;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'idiomas',
@@ -45,30 +45,24 @@ export const IdiomasForm: React.FC<Props> = (props) => {
             <CustomTextField required errors={errors} register={register} label="Idioma" name={`idiomas.${index}.idioma`} />
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
               label="Lo Habla"
+              control={control}
               options={idiomaOptions}
               name={`idiomas.${index}.loHabla`}
             />
             <CustomSelect
               required
-              watch={watch}
-              errors={errors}
-              register={register}
-              setValue={setValue}
               label="Lo Lee"
+              errors={errors}
+              control={control}
               options={idiomaOptions}
               name={`idiomas.${index}.loLee`}
             />
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               label="Lo Escribe"
               options={idiomaOptions}
               name={`idiomas.${index}.loEscribe`}

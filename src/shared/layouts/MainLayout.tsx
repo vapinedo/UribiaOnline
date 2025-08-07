@@ -1,7 +1,7 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
-import Navbar from '@shared/components/Navbar';
 import { useLocation } from 'react-router-dom';
+import Navbar from '@shared/components/Navbar/Navbar';
 import Breadcrumbs from '@shared/components/Breadcrumbs';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {

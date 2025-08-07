@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import BoxShadow from '@shared/components/BoxShadow';
+import { BoxShadow } from '@shared/components';
 import { dialogConfirm } from '@infra/ui/notifications/dialogs/dialogAdapter';
 import { DataGrid, GridColDef, GridToolbar, GridValidRowModel } from '@mui/x-data-grid';
 

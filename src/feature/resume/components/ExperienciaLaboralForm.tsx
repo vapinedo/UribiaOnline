@@ -1,15 +1,15 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Resume } from '@core/models/Resume';
-import { AutoGridRow } from '@components/AutoGridRow';
-import { useCountries } from 'shared/hooks/useCountries';
-import { CustomSelect } from '@components/CustomSelect';
-import { useMunicipios } from 'shared/hooks/useMunicipios';
+import { useCountries } from '@shared/hooks/useCountries';
+import { useMunicipios } from '@shared/hooks/useMunicipios';
+import { AutoGridRow } from '@shared/components/AutoGridRow';
+import { CustomSelect } from '@shared/components/CustomSelect';
 import TitledSection from '@shared/components/TitledSection';
-import { CustomTextField } from '@components/CustomTextField';
-import { CustomDatePicker } from '@components/CustomDatePicker';
-import { useDepartamentos } from 'shared/hooks/useDepartamentos';
+import { useDepartamentos } from '@shared/hooks/useDepartamentos';
+import { CustomTextField } from '@shared/components/CustomTextField';
 import { tipoEmpresaOptions } from '@core/constants/dropdownOptions';
+import { CustomDatePicker } from '@shared/components/CustomDatePicker';
 import { Control, FieldErrors, UseFormWatch, UseFormSetValue, UseFormRegister, useFieldArray } from 'react-hook-form';
 
 const MAX_DYNAMIC_FIELDS = 4;
@@ -27,7 +27,7 @@ export const ExperienciaLaboralForm: React.FC<Props> = (props) => {
   const { data: departamentos } = useDepartamentos();
   const { data: municipios } = useMunicipios('La Guajira');
 
-  const { control, errors, register, setValue, watch } = props;
+  const { control, errors, register } = props;
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'experienciaLaboral',
@@ -67,10 +67,8 @@ export const ExperienciaLaboralForm: React.FC<Props> = (props) => {
             />
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               label="Tipo de Empresa"
               options={tipoEmpresaOptions}
               name={`experienciaLaboral.${index}.tipoEmpresa`}
@@ -95,29 +93,23 @@ export const ExperienciaLaboralForm: React.FC<Props> = (props) => {
             <CustomSelect
               required
               label="País"
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               options={countries ?? []}
               name={`experienciaLaboral.${index}.paisEmpresa`}
             />
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               options={departamentos ?? []}
               label="Departamento"
               name={`experienciaLaboral.${index}.departamentoEmpresa`}
             />
             <CustomSelect
               required
-              watch={watch}
               errors={errors}
-              register={register}
-              setValue={setValue}
+              control={control}
               options={municipios ?? []}
               label="Municipio"
               name={`experienciaLaboral.${index}.municipioEmpresa`}
@@ -150,7 +142,6 @@ export const ExperienciaLaboralForm: React.FC<Props> = (props) => {
               required
               errors={errors}
               control={control}
-              register={register}
               label="Fecha de Inicio"
               name={`experienciaLaboral.${index}.fechaInicio`}
             />
@@ -158,7 +149,6 @@ export const ExperienciaLaboralForm: React.FC<Props> = (props) => {
               required
               errors={errors}
               control={control}
-              register={register}
               label="Fecha de Fin"
               name={`experienciaLaboral.${index}.fechaFin`}
             />
