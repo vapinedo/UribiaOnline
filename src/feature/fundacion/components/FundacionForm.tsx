@@ -28,7 +28,6 @@ const defaultValues: Fundacion = {
   ciudad: '',
   telefono: '',
   direccion: '',
-  descripcion: '',
   departamento: '',
   representanteLegal: '',
   fechaCreacion: new Date(),
@@ -71,7 +70,7 @@ export default function FundacionForm({ modo, fundacionId }: FundacionFormProps)
         } else {
           await actualizarFundacion.mutateAsync({ entity: fundacion });
         }
-        navigate('/fundacions');
+        navigate('/fundaciones');
       } catch (error) {
         console.error(error);
       }

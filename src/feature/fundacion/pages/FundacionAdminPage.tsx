@@ -10,7 +10,13 @@ export default function FundacionAdminPage() {
   const eliminarFundacion = useEliminarFundacion();
 
   const columns: GridColDef[] = [
-
+    { field: 'nombre', headerName: 'Fundación', width: 200 },
+    { field: 'representanteLegal', headerName: 'Representante Legal', width: 200 },
+    { field: 'nit', headerName: 'Nit', width: 200 },
+    { field: 'telefono', headerName: 'Teléfono', width: 200 },
+    { field: 'email', headerName: 'Correo Electrónico', width: 200 },
+    { field: 'ciudad', headerName: 'Ciudad', width: 200 },
+    { field: 'direccion', headerName: 'Dirección', width: 200 },
   ];
 
   return (
