@@ -5,9 +5,11 @@ import { toastError } from '@infra/ui/notifications/toast/toastAdapter';
 
 const navLinks = [
   { to: '/', label: 'Inicio' },
-  // { to: '/barrios', label: 'Barrios' },
-  // { to: '/formato-rpp', label: 'Formato RPP' },
   { to: '/fundaciones', label: 'Fundaciones' },
+  {
+    label: 'Formatos',
+    children: [{ to: '/formato-rpp', label: 'Formato RPP - ICBF' }],
+  },
 ];
 
 export default function Navbar() {
@@ -50,13 +52,37 @@ export default function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {navLinks.map(({ to, label }) => (
-              <li className="nav-item" key={to}>
-                <NavLink className="nav-link" to={to}>
-                  {label}
-                </NavLink>
-              </li>
-            ))}
+            {navLinks.map((item) =>
+              item.children ? (
+                <li className="nav-item dropdown" key={item.label}>
+                  <a
+                    className="nav-link dropdown-toggle"
+                    href="#"
+                    id={`dropdown-${item.label}`}
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {item.label}
+                  </a>
+                  <ul className="dropdown-menu" aria-labelledby={`dropdown-${item.label}`}>
+                    {item.children.map((child) => (
+                      <li key={child.to}>
+                        <NavLink className="dropdown-item" to={child.to}>
+                          {child.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li className="nav-item" key={item.to}>
+                  <NavLink className="nav-link" to={item.to}>
+                    {item.label}
+                  </NavLink>
+                </li>
+              )
+            )}
           </ul>
 
           {user && (
