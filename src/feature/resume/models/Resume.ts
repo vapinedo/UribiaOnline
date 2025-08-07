@@ -32,7 +32,7 @@ export interface EducacionSuperior {
   graduado: string;
   tituloObtenido: string;
   fechaGrado: string;
-  tarjetProfesional: string;
+  tarjetProfesional?: string;
 }
 
 export interface Idiomas {

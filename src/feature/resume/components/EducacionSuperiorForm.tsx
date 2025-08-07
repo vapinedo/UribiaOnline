@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
-import { Resume } from '@core/models/Resume';
+import { Resume } from '@feature/resume/models/Resume';
 import TitledSection from '@shared/components/TitledSection';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
 import { CustomSelect } from '@shared/components/CustomSelect';
@@ -79,7 +79,6 @@ export const EducacionSuperiorForm: React.FC<Props> = (props) => {
               name={`educacionSuperior.${index}.tituloObtenido`}
             />
             <CustomTextField
-              required
               errors={errors}
               register={register}
               label="Número Tarjeta Profesional"

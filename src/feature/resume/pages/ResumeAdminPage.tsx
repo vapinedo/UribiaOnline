@@ -10,10 +10,10 @@ type ResumeWithId = Resume & { id: string };
 interface ResumeTableData {
   id: string;
   nombres: string;
-  primerApellido: string;
-  segundoApellido: string;
   telefono: string;
   tipoDocumento: string;
+  primerApellido: string;
+  segundoApellido: string;
   numeroDocumento: string;
 }
 
@@ -71,7 +71,7 @@ export default function ResumeAdminPage() {
       loading={isLoading}
       title="Hojas de Vida"
       data={resumesFormatted}
-      createRoute="/resume/nuevo"
+      createRoute="/resumes/nuevo"
       onDelete={(row) => eliminarResume.mutate(row.id)}
       onEdit={(row) => navigate(`/resume/editar/${row.id}`)}
       onPrint={(row) => handleGeneratePdf(row.id)}
