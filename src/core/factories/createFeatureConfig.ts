@@ -1,8 +1,10 @@
 export function createFeatureConfig(config: { name: string; collectionName?: string; routePath?: string }) {
   const name = config.name.toLowerCase();
   const nameCapitalized = name.charAt(0).toUpperCase() + name.slice(1);
-  const namePlural = name + 's';
-  const namePluralCapitalized = nameCapitalized + 's';
+  const endsWithVowel = /[aeiouáéíóú]$/i.test(name);
+  const pluralSuffix = endsWithVowel ? 's' : 'es';
+  const namePlural = name + pluralSuffix;
+  const namePluralCapitalized = nameCapitalized + pluralSuffix;
 
   return {
     name,

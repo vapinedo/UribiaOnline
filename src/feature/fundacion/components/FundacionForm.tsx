@@ -1,18 +1,18 @@
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
+import { BoxShadow } from '@shared/components';
 import { useQuery } from '@tanstack/react-query';
-import BoxShadow from '@shared/components/BoxShadow';
-import { FieldErrors, useForm } from 'react-hook-form';
 import { CustomTextField } from '@shared/components';
+import { FieldErrors, useForm } from 'react-hook-form';
+import { useMunicipios } from '@shared/hooks/useMunicipios';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
 import { CustomSelect } from '@shared/components/CustomSelect';
 import { Fundacion } from '@feature/fundacion/models/Fundacion';
+import { useDepartamentos } from '@shared/hooks/useDepartamentos';
 import { fundacionConfig } from '@feature/fundacion/FundacionConfig';
 import { fundacionRepository } from '@feature/fundacion/repositories/fundacionRepository';
 import { useCrearFundacion, useActualizarFundacion } from '@feature/fundacion/hooks/useFundacion';
-import { useDepartamentos } from '@shared/hooks/useDepartamentos';
-import { useMunicipios } from '@shared/hooks/useMunicipios';
 
 type FundacionFormProps = {
   modo: 'crear' | 'editar';
@@ -30,8 +30,6 @@ const defaultValues: Fundacion = {
   direccion: '',
   departamento: '',
   representanteLegal: '',
-  fechaCreacion: new Date(),
-  fechaActualizacion: new Date(),
 };
 
 export default function FundacionForm({ modo, fundacionId }: FundacionFormProps) {

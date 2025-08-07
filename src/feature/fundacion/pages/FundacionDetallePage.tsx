@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import BoxShadow from '@shared/components/BoxShadow';
+import { BoxShadow } from '@shared/components/BoxShadow';
 import { fundacionRepository } from '@feature/fundacion/repositories/fundacionRepository';
 
 export default function FundacionDetallePage() {
   const { id } = useParams<{ id: string }>();
-  
+
   const { data: fundacion, isLoading } = useQuery({
     queryKey: ['fundacion', id],
     queryFn: () => fundacionRepository.obtenerPorId(id!),
@@ -31,7 +31,6 @@ export default function FundacionDetallePage() {
   return (
     <BoxShadow>
       <h2>{fundacion.nombre}</h2>
-
     </BoxShadow>
   );
 }
