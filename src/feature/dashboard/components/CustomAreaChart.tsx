@@ -1,4 +1,4 @@
-import BoxShadow from '@shared/components/BoxShadow';
+import { BoxShadow } from '@shared/components';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 // Datos de ejemplo

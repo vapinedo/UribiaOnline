@@ -1,4 +1,4 @@
-import BoxShadow from '@shared/components/BoxShadow';
+import { BoxShadow } from '@shared/components';
 import { PieChart, Pie, Tooltip, Cell, Legend, ResponsiveContainer } from 'recharts';
 
 // Datos de ejemplo
