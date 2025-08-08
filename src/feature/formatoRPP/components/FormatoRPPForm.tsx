@@ -8,6 +8,7 @@ import { CustomTextField } from '@shared/components/CustomTextField';
 import { FieldErrors, useForm, useFieldArray } from 'react-hook-form';
 import { formatoRPPConfig } from '@feature/formatoRPP/FormatoRPPConfig';
 import { useListarFundacions } from '@feature/fundacion/hooks/useFundacion';
+import { FormatoRPPGenaratePDF } from '@feature/formatoRPP/components/FormatoRPPGenaratePDF';
 import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRPPRepository';
 import { useCrearFormatoRPP, useActualizarFormatoRPP } from '@feature/formatoRPP/hooks/useFormatoRPP';
 import { BoxShadow, CustomSelect, CustomDatePicker, TitledSection, SingleImageUploader } from '@shared/components';
@@ -53,7 +54,7 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
     mode: 'onTouched',
   });
 
-  const { control, setValue, watch, register, formState, handleSubmit, reset } = form;
+  const { control, getValues, setValue, watch, register, formState, handleSubmit, reset } = form;
   const { errors, isSubmitting, isValid } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -86,6 +87,18 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
   const onError = useCallback((errors: FieldErrors<any>) => {
     console.log({ errors });
   }, []);
+
+  const handleGeneratePDF = async () => {
+    const formData = getValues();
+    const pdfBytes = await FormatoRPPGenaratePDF(formData, '');
+
+    // Crear un Blob y abrir el PDF en una nueva pestaña
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+    // Opcional: liberar el objeto URL después de un tiempo
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  };
 
   if (modo === 'editar' && cargandoFormatoRPP) {
     return (
@@ -207,8 +220,12 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
           </Button>
         </TitledSection>
 
-        <Button type="submit" color="success" variant="contained" sx={{ marginTop: 2 }} disabled={isSubmitting || !isValid}>
+        {/* <Button type="submit" color="success" variant="contained" sx={{ marginTop: 2 }} disabled={isSubmitting || !isValid}>
           {modo === 'crear' ? 'Guardar' : 'Actualizar'}
+        </Button> */}
+
+        <Button type="button" variant="outlined" color="secondary" onClick={handleGeneratePDF}>
+          Generar PDF
         </Button>
       </form>
     </BoxShadow>
