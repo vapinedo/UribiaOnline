@@ -12,6 +12,9 @@ import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRP
 import { useCrearFormatoRPP, useActualizarFormatoRPP } from '@feature/formatoRPP/hooks/useFormatoRPP';
 import { BoxShadow, CustomSelect, CustomDatePicker, TitledSection, SingleImageUploader } from '@shared/components';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+
 type FormatoRPPFormProps = {
   modo: 'crear' | 'editar';
   formatoRPPId?: string;
@@ -136,50 +139,66 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
         </AutoGridRow>
 
         <TitledSection title="Beneficiarios">
-          {fields.map((field, idx) => (
-            <div key={field.id} style={{ marginBottom: 24, border: '1px solid #eee', padding: 16 }}>
-              <AutoGridRow spacing={2} rowSpacing={2}>
-                <CustomTextField
-                  required
-                  errors={errors}
-                  register={register}
-                  label="Nombre del beneficiario"
-                  name={`beneficiarios.${idx}.nombre`}
-                />
-                <CustomTextField
-                  required
-                  label="NIUP"
-                  errors={errors}
-                  register={register}
-                  name={`beneficiarios.${idx}.niup`}
-                />
-                <SingleImageUploader
-                  image={watch(`beneficiarios.${idx}.fotos.0`) || null}
-                  onImageSelected={(file) => {
-                    setValue(`beneficiarios.${idx}.fotos`, file ? [URL.createObjectURL(file)] : [], {
-                      shouldValidate: true,
-                      shouldDirty: true,
-                    });
-                  }}
-                />
-              </AutoGridRow>
-              <Button
-                size="small"
-                color="error"
-                variant="contained"
-                style={{ marginTop: 12 }}
-                onClick={() => remove(idx)}
-                disabled={fields.length === 1}
-              >
-                Eliminar
-              </Button>
-            </div>
-          ))}
+          <TableContainer component={Paper} sx={{ mb: 2 }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Nombre</TableCell>
+                  <TableCell>NIUP</TableCell>
+                  <TableCell>Foto</TableCell>
+                  <TableCell align="center">Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {fields.map((field, idx) => (
+                  <TableRow key={field.id}>
+                    <TableCell>
+                      <CustomTextField
+                        required
+                        errors={errors}
+                        register={register}
+                        label=""
+                        name={`beneficiarios.${idx}.nombre`}
+                        size="small"
+                        fullWidth
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <CustomTextField
+                        required
+                        label=""
+                        errors={errors}
+                        register={register}
+                        name={`beneficiarios.${idx}.niup`}
+                        size="small"
+                        fullWidth
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <SingleImageUploader
+                        image={watch(`beneficiarios.${idx}.fotos.0`) || null}
+                        onImageSelected={(file) => {
+                          setValue(`beneficiarios.${idx}.fotos`, file ? [URL.createObjectURL(file)] : [], {
+                            shouldValidate: true,
+                            shouldDirty: true,
+                          });
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton color="error" onClick={() => remove(idx)} disabled={fields.length === 1} size="small">
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
           <Button
             type="button"
             color="primary"
             variant="contained"
-            style={{ marginTop: 10 }}
             onClick={() => append({ nombre: '', niup: '', fotos: [] })}
           >
             Agregar beneficiario ({fields.length})
