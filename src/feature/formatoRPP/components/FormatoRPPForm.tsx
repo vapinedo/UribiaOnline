@@ -142,11 +142,13 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
           <TableContainer component={Paper} sx={{ mb: 2 }}>
             <Table size="small">
               <TableHead>
-                <TableRow>
-                  <TableCell>Nombre</TableCell>
-                  <TableCell>NIUP</TableCell>
-                  <TableCell>Foto</TableCell>
-                  <TableCell align="center">Acciones</TableCell>
+                <TableRow sx={{ backgroundColor: '#1976d2' }}>
+                  <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Nombre</TableCell>
+                  <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>NIUP</TableCell>
+                  <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Foto</TableCell>
+                  <TableCell align="center" sx={{ color: '#fff', fontWeight: 'bold' }}>
+                    Acciones
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
