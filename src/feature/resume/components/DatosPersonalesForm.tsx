@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Resume } from '@core/models/Resume';
+import { Resume } from '@feature/resume/models/Resume';
 import { useCountries } from '@shared/hooks/useCountries';
 import { useMunicipios } from '@shared/hooks/useMunicipios';
 import TitledSection from '@shared/components/TitledSection';

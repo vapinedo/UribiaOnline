@@ -2,13 +2,13 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import BoxShadow from '@shared/components/BoxShadow';
-import { CustomDatePicker } from '@shared/components';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
 import { FormatoRPP } from '@feature/formatoRPP/models/FormatoRPP';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { formatoRPPConfig } from '@feature/formatoRPP/FormatoRPPConfig';
+import { useListarFundacions } from '@feature/fundacion/hooks/useFundacion';
+import { BoxShadow, CustomSelect, CustomDatePicker } from '@shared/components';
 import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRPPRepository';
 import { useCrearFormatoRPP, useActualizarFormatoRPP } from '@feature/formatoRPP/hooks/useFormatoRPP';
 
@@ -19,11 +19,10 @@ type FormatoRPPFormProps = {
 
 const defaultValues: FormatoRPP = {
   id: '',
-  jiei: '',
   niup: '',
-  nombrePrograma: '',
-  nitInstitucion: '',
-  logoInstitucion: '',
+  fotos: [''],
+  idFundacion: '',
+  nombreOperador: '',
   nombreActividad: '',
   nombreBeneficiario: '',
   fechaCreacion: new Date(),
@@ -32,6 +31,7 @@ const defaultValues: FormatoRPP = {
 
 export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormProps) {
   const navigate = useNavigate();
+  const { data: fundaciones = [], isLoading: cargandoFundaciones } = useListarFundacions();
 
   const crearFormatoRPP = useCrearFormatoRPP();
   const actualizarFormatoRPP = useActualizarFormatoRPP();
@@ -41,6 +41,11 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
     queryFn: () => formatoRPPRepository.obtenerPorId(formatoRPPId!),
     enabled: modo === 'editar' && !!formatoRPPId,
   });
+
+  const fundacionOptions = fundaciones.map((f) => ({
+    label: f.nombre,
+    value: f.id,
+  }));
 
   const form = useForm<FormatoRPP>({
     defaultValues,
@@ -79,7 +84,7 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
   if (modo === 'editar' && cargandoFormatoRPP) {
     return (
       <BoxShadow>
-        <p>Cargando datos del formatoRPP...</p>
+        <p>Cargando datos del formato RPP...</p>
       </BoxShadow>
     );
   }
@@ -92,37 +97,45 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
 
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         <AutoGridRow spacing={2} rowSpacing={2}>
-          <CustomTextField required name="jiei" label="JIEI" errors={errors} register={register} />
+          <CustomSelect
+            required
+            errors={errors}
+            label="Fundación"
+            control={control}
+            name="idFundacion"
+            options={fundacionOptions}
+          />
+          <CustomTextField required name="nombreOperador" label="Nombre del operador" errors={errors} register={register} />
+          <CustomTextField
+            required
+            errors={errors}
+            register={register}
+            name="nombreActividad"
+            label="Nombre de la actividad"
+          />
+          <CustomTextField
+            required
+            errors={errors}
+            register={register}
+            name="nombreBeneficiario"
+            label="Nombre del beneficiario"
+          />
+        </AutoGridRow>
+
+        <AutoGridRow spacing={2} rowSpacing={2}>
+          <CustomTextField
+            required
+            errors={errors}
+            register={register}
+            name="profesionalResponsable"
+            label="Nombre del profesional responsable"
+          />
           <CustomTextField required name="niup" label="NIUP" errors={errors} register={register} />
           <CustomDatePicker required errors={errors} control={control} name="fechaCreacion" label="Fecha de Creación" />
-          <CustomTextField required name="nombrePrograma" label="Nombre Programa" errors={errors} register={register} />
-        </AutoGridRow>
-
-        <AutoGridRow spacing={2} rowSpacing={2}>
-          <CustomTextField required name="nitInstitucion" label="Nombre Institución" errors={errors} register={register} />
-          <CustomTextField required name="logoInstitucion" label="Logo Institución" errors={errors} register={register} />
-          <CustomTextField required name="nombreActividad" label="Nombre Actividad" errors={errors} register={register} />
-          <CustomTextField
-            required
-            name="nombreBeneficiario"
-            label="Nombre Beneficiario"
-            errors={errors}
-            register={register}
-          />
-        </AutoGridRow>
-
-        <AutoGridRow spacing={2} rowSpacing={2}>
-          <CustomTextField
-            required
-            name="profesionalResponsable"
-            label="Nombre Profesional Responsable"
-            errors={errors}
-            register={register}
-          />
         </AutoGridRow>
 
         <Button type="submit" color="success" variant="contained" sx={{ marginTop: 2 }} disabled={isSubmitting || !isValid}>
-          {modo === 'crear' ? 'Crear FormatoRPP' : 'Actualizar FormatoRPP'}
+          {modo === 'crear' ? 'Guardar' : 'Actualizar'}
         </Button>
       </form>
     </BoxShadow>

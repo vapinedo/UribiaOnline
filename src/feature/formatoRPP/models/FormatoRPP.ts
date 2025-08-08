@@ -1,11 +1,10 @@
 export interface FormatoRPP {
   id: string;
-  jiei: string;
   niup: string;
+  fotos: string[];
+  idFundacion: string;
   fechaCreacion: Date;
-  nombrePrograma: string;
-  nitInstitucion: string;
-  logoInstitucion: string;
+  nombreOperador: string;
   nombreActividad: string;
   nombreBeneficiario: string;
   profesionalResponsable: string;

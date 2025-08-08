@@ -9,16 +9,14 @@ export default function FormatoRPPAdminPage() {
   const { data: formatoRPPs = [], isLoading } = useListarFormatoRPPs();
   const eliminarFormatoRPP = useEliminarFormatoRPP();
 
-  const columns: GridColDef[] = [
-
-  ];
+  const columns: GridColDef[] = [];
 
   return (
     <AdminTable
       data={formatoRPPs}
       columns={columns}
       loading={isLoading}
-      title={formatoRPPConfig.title}
+      title="Gestión de Formatos RPP"
       createRoute={formatoRPPConfig.routePath + '/nuevo'}
       onDelete={(row) => eliminarFormatoRPP.mutate(row.id)}
       onEdit={(row) => navigate(`${formatoRPPConfig.routePath}/editar/${row.id}`)}

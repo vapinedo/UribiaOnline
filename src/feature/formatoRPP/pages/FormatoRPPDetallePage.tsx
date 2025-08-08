@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
+import { BoxShadow } from '@shared/components';
 import { useQuery } from '@tanstack/react-query';
-import BoxShadow from '@shared/components/BoxShadow';
 import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRPPRepository';
 
 export default function FormatoRPPDetallePage() {
   const { id } = useParams<{ id: string }>();
-  
+
   const { data: formatoRPP, isLoading } = useQuery({
     queryKey: ['formatoRPP', id],
     queryFn: () => formatoRPPRepository.obtenerPorId(id!),
@@ -30,8 +30,7 @@ export default function FormatoRPPDetallePage() {
 
   return (
     <BoxShadow>
-      <h2>{formatoRPP.nombre}</h2>
-
+      <h2>{formatoRPP.nombreActividad}</h2>
     </BoxShadow>
   );
 }
