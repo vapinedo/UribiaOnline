@@ -7,7 +7,7 @@ interface TitledSectionProps {
   titleVariant?: 'h4' | 'h5' | 'h6'; // puedes expandir si quieres
 }
 
-export default function TitledSection({ title, children, titleVariant = 'h5' }: TitledSectionProps) {
+export const TitledSection = ({ title, children, titleVariant = 'h5' }: TitledSectionProps) => {
   return (
     <Paper elevation={1} sx={{ p: 3, mb: 3, borderRadius: 2 }}>
       <Typography variant={titleVariant} gutterBottom sx={{ mb: 0 }}>
@@ -16,4 +16,4 @@ export default function TitledSection({ title, children, titleVariant = 'h5' }: 
       {children}
     </Paper>
   );
-}
+};

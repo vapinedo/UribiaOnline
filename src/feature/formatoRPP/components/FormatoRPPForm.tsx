@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
+import { FormatoRPP } from '@feature/formatoRPP/models/FormatoRPP';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { FieldErrors, useForm, useFieldArray } from 'react-hook-form';
 import { formatoRPPConfig } from '@feature/formatoRPP/FormatoRPPConfig';
 import { useListarFundacions } from '@feature/fundacion/hooks/useFundacion';
-import { FormatoRPP, BeneficiarioRPP } from '@feature/formatoRPP/models/FormatoRPP';
 import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRPPRepository';
-import { BoxShadow, CustomSelect, CustomDatePicker, ImageUploader } from '@shared/components';
 import { useCrearFormatoRPP, useActualizarFormatoRPP } from '@feature/formatoRPP/hooks/useFormatoRPP';
+import { BoxShadow, CustomSelect, CustomDatePicker, TitledSection, ImageUploader } from '@shared/components';
 
 type FormatoRPPFormProps = {
   modo: 'crear' | 'editar';
@@ -23,8 +23,8 @@ const defaultValues: FormatoRPP = {
   beneficiarios: [],
   nombreActividad: '',
   nombreComponente: '',
-  nombreProfesional: '',
   fechaCreacion: new Date(),
+  profesionalResponsable: '',
 };
 
 export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormProps) {
@@ -135,39 +135,55 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
           <CustomDatePicker required errors={errors} control={control} name="fechaCreacion" label="Fecha de Creación" />
         </AutoGridRow>
 
-        <h4 className="mt-4">Beneficiarios</h4>
-        {fields.map((field, idx) => (
-          <AutoGridRow key={field.id} spacing={2} rowSpacing={2}>
-            <CustomTextField
-              required
-              errors={errors}
-              register={register}
-              name={`beneficiarios.${idx}.nombre`}
-              label="Nombre del beneficiario"
-            />
-            <CustomTextField required errors={errors} register={register} name={`beneficiarios.${idx}.niup`} label="NIUP" />
-            <ImageUploader
-              onImagesSelected={(files) => {
-                setValue(
-                  `beneficiarios.${idx}.fotos`,
-                  files.map((file) => URL.createObjectURL(file))
-                );
-              }}
-            />
-            <Button type="button" color="error" variant="outlined" onClick={() => remove(idx)}>
-              Eliminar beneficiario
-            </Button>
-          </AutoGridRow>
-        ))}
-        <Button
-          type="button"
-          color="primary"
-          variant="contained"
-          sx={{ marginTop: 2 }}
-          onClick={() => append({ nombre: '', niup: '', fotos: [] })}
-        >
-          Agregar beneficiario
-        </Button>
+        <TitledSection title="Beneficiarios">
+          {fields.map((field, idx) => (
+            <div key={field.id} style={{ marginBottom: 24, border: '1px solid #eee', padding: 16 }}>
+              <AutoGridRow spacing={2} rowSpacing={2}>
+                <CustomTextField
+                  required
+                  errors={errors}
+                  register={register}
+                  name={`beneficiarios.${idx}.nombre`}
+                  label="Nombre del beneficiario"
+                />
+                <CustomTextField
+                  required
+                  errors={errors}
+                  register={register}
+                  name={`beneficiarios.${idx}.niup`}
+                  label="NIUP"
+                />
+                <ImageUploader
+                  onImagesSelected={(files) => {
+                    setValue(
+                      `beneficiarios.${idx}.fotos`,
+                      files.map((file) => URL.createObjectURL(file))
+                    );
+                  }}
+                />
+              </AutoGridRow>
+              <Button
+                size="small"
+                color="error"
+                variant="contained"
+                disabled={fields.length === 1}
+                style={{ marginTop: 12 }}
+                onClick={() => remove(idx)}
+              >
+                Eliminar
+              </Button>
+            </div>
+          ))}
+          <Button
+            type="button"
+            color="primary"
+            variant="contained"
+            style={{ marginTop: 10 }}
+            onClick={() => append({ nombre: '', niup: '', fotos: [] })}
+          >
+            Agregar beneficiario ({fields.length})
+          </Button>
+        </TitledSection>
 
         <Button type="submit" color="success" variant="contained" sx={{ marginTop: 2 }} disabled={isSubmitting || !isValid}>
           {modo === 'crear' ? 'Guardar' : 'Actualizar'}
