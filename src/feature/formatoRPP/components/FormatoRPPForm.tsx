@@ -2,14 +2,14 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { FieldErrors, useForm } from 'react-hook-form';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
-import { FormatoRPP } from '@feature/formatoRPP/models/FormatoRPP';
 import { CustomTextField } from '@shared/components/CustomTextField';
+import { FieldErrors, useForm, useFieldArray } from 'react-hook-form';
 import { formatoRPPConfig } from '@feature/formatoRPP/FormatoRPPConfig';
 import { useListarFundacions } from '@feature/fundacion/hooks/useFundacion';
-import { BoxShadow, CustomSelect, CustomDatePicker } from '@shared/components';
+import { FormatoRPP, BeneficiarioRPP } from '@feature/formatoRPP/models/FormatoRPP';
 import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRPPRepository';
+import { BoxShadow, CustomSelect, CustomDatePicker, ImageUploader } from '@shared/components';
 import { useCrearFormatoRPP, useActualizarFormatoRPP } from '@feature/formatoRPP/hooks/useFormatoRPP';
 
 type FormatoRPPFormProps = {
@@ -19,14 +19,12 @@ type FormatoRPPFormProps = {
 
 const defaultValues: FormatoRPP = {
   id: '',
-  niup: '',
-  fotos: [''],
   idFundacion: '',
-  nombreOperador: '',
+  beneficiarios: [],
   nombreActividad: '',
-  nombreBeneficiario: '',
+  nombreComponente: '',
+  nombreProfesional: '',
   fechaCreacion: new Date(),
-  profesionalResponsable: '',
 };
 
 export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormProps) {
@@ -52,8 +50,13 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
     mode: 'onTouched',
   });
 
-  const { control, register, formState, handleSubmit, reset } = form;
+  const { control, setValue, register, formState, handleSubmit, reset } = form;
   const { errors, isSubmitting, isValid } = formState;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'beneficiarios',
+  });
 
   useEffect(() => {
     if (modo === 'editar' && formatoRPPEditando) {
@@ -105,7 +108,16 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
             name="idFundacion"
             options={fundacionOptions}
           />
-          <CustomTextField required name="nombreOperador" label="Nombre del operador" errors={errors} register={register} />
+        </AutoGridRow>
+
+        <AutoGridRow spacing={2} rowSpacing={2}>
+          <CustomTextField
+            required
+            errors={errors}
+            register={register}
+            name="nombreComponente"
+            label="Nombre del componente"
+          />
           <CustomTextField
             required
             errors={errors}
@@ -117,22 +129,45 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
             required
             errors={errors}
             register={register}
-            name="nombreBeneficiario"
-            label="Nombre del beneficiario"
-          />
-        </AutoGridRow>
-
-        <AutoGridRow spacing={2} rowSpacing={2}>
-          <CustomTextField
-            required
-            errors={errors}
-            register={register}
             name="profesionalResponsable"
             label="Nombre del profesional responsable"
           />
-          <CustomTextField required name="niup" label="NIUP" errors={errors} register={register} />
           <CustomDatePicker required errors={errors} control={control} name="fechaCreacion" label="Fecha de Creación" />
         </AutoGridRow>
+
+        <h4 className="mt-4">Beneficiarios</h4>
+        {fields.map((field, idx) => (
+          <AutoGridRow key={field.id} spacing={2} rowSpacing={2}>
+            <CustomTextField
+              required
+              errors={errors}
+              register={register}
+              name={`beneficiarios.${idx}.nombre`}
+              label="Nombre del beneficiario"
+            />
+            <CustomTextField required errors={errors} register={register} name={`beneficiarios.${idx}.niup`} label="NIUP" />
+            <ImageUploader
+              onImagesSelected={(files) => {
+                setValue(
+                  `beneficiarios.${idx}.fotos`,
+                  files.map((file) => URL.createObjectURL(file))
+                );
+              }}
+            />
+            <Button type="button" color="error" variant="outlined" onClick={() => remove(idx)}>
+              Eliminar beneficiario
+            </Button>
+          </AutoGridRow>
+        ))}
+        <Button
+          type="button"
+          color="primary"
+          variant="contained"
+          sx={{ marginTop: 2 }}
+          onClick={() => append({ nombre: '', niup: '', fotos: [] })}
+        >
+          Agregar beneficiario
+        </Button>
 
         <Button type="submit" color="success" variant="contained" sx={{ marginTop: 2 }} disabled={isSubmitting || !isValid}>
           {modo === 'crear' ? 'Guardar' : 'Actualizar'}

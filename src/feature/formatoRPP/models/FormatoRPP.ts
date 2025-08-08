@@ -1,11 +1,15 @@
+export interface BeneficiarioRPP {
+  niup: string;
+  nombre: string;
+  fotos: string[];
+}
+
 export interface FormatoRPP {
   id: string;
-  niup: string;
-  fotos: string[];
   idFundacion: string;
   fechaCreacion: Date;
-  nombreOperador: string;
   nombreActividad: string;
-  nombreBeneficiario: string;
+  nombreComponente: string;
   profesionalResponsable: string;
+  beneficiarios: BeneficiarioRPP[];
 }

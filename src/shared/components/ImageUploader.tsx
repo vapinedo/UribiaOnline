@@ -6,12 +6,12 @@ interface ImageUploaderProps {
   onImagesSelected: (files: File[]) => void;
 }
 
-const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesSelected }) => {
+export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesSelected }) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
 
   const onDrop = (acceptedFiles: File[]) => {
-    const urls = acceptedFiles.map(file => URL.createObjectURL(file));
+    const urls = acceptedFiles.map((file) => URL.createObjectURL(file));
     setImagePreviews(urls);
     setImageFiles(acceptedFiles);
     onImagesSelected(acceptedFiles);
@@ -37,7 +37,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesSelected }) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    disabled: imageFiles.length > 0 // Deshabilitar la funcionalidad de dropzone si hay imágenes cargadas
+    disabled: imageFiles.length > 0, // Deshabilitar la funcionalidad de dropzone si hay imágenes cargadas
   });
 
   return (
@@ -60,7 +60,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesSelected }) => {
               style={{ width: '100px', height: '100px', marginRight: '10px', cursor: 'pointer' }}
             />
             <i
-              className='bx bx-x-circle'
+              className="bx bx-x-circle"
               onClick={() => removeImage(index)}
               style={{ color: 'gray', fontSize: '28px', cursor: 'pointer', position: 'absolute', top: 0, right: 0 }}
             ></i>
@@ -68,12 +68,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesSelected }) => {
         ))}
       </div>
       {imagePreviews.length > 0 && (
-        <Button variant='contained' color='error' onClick={removeAllImages} style={{ marginTop: '10px' }}>
+        <Button variant="contained" color="error" onClick={removeAllImages} style={{ marginTop: '10px' }}>
           Eliminar todas las imágenes
         </Button>
       )}
     </section>
   );
 };
-
-export default ImageUploader;
