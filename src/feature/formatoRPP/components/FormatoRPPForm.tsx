@@ -10,7 +10,7 @@ import { formatoRPPConfig } from '@feature/formatoRPP/FormatoRPPConfig';
 import { useListarFundacions } from '@feature/fundacion/hooks/useFundacion';
 import { formatoRPPRepository } from '@feature/formatoRPP/repositories/formatoRPPRepository';
 import { useCrearFormatoRPP, useActualizarFormatoRPP } from '@feature/formatoRPP/hooks/useFormatoRPP';
-import { BoxShadow, CustomSelect, CustomDatePicker, TitledSection, ImageUploader } from '@shared/components';
+import { BoxShadow, CustomSelect, CustomDatePicker, TitledSection, SingleImageUploader } from '@shared/components';
 
 type FormatoRPPFormProps = {
   modo: 'crear' | 'editar';
@@ -50,7 +50,7 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
     mode: 'onTouched',
   });
 
-  const { control, setValue, register, formState, handleSubmit, reset } = form;
+  const { control, setValue, watch, register, formState, handleSubmit, reset } = form;
   const { errors, isSubmitting, isValid } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -143,22 +143,23 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
                   required
                   errors={errors}
                   register={register}
-                  name={`beneficiarios.${idx}.nombre`}
                   label="Nombre del beneficiario"
+                  name={`beneficiarios.${idx}.nombre`}
                 />
                 <CustomTextField
                   required
+                  label="NIUP"
                   errors={errors}
                   register={register}
                   name={`beneficiarios.${idx}.niup`}
-                  label="NIUP"
                 />
-                <ImageUploader
-                  onImagesSelected={(files) => {
-                    setValue(
-                      `beneficiarios.${idx}.fotos`,
-                      files.map((file) => URL.createObjectURL(file))
-                    );
+                <SingleImageUploader
+                  image={watch(`beneficiarios.${idx}.fotos.0`) || null}
+                  onImageSelected={(file) => {
+                    setValue(`beneficiarios.${idx}.fotos`, file ? [URL.createObjectURL(file)] : [], {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                    });
                   }}
                 />
               </AutoGridRow>
@@ -166,9 +167,9 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
                 size="small"
                 color="error"
                 variant="contained"
-                disabled={fields.length === 1}
                 style={{ marginTop: 12 }}
                 onClick={() => remove(idx)}
+                disabled={fields.length === 1}
               >
                 Eliminar
               </Button>

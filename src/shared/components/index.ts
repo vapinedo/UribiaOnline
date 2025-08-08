@@ -11,3 +11,4 @@ export * from './IconSVG';
 export * from './ImageUploader';
 export * from './Navbar/Navbar';
 export * from './TitledSection';
+export * from './SingleImageUploader';
