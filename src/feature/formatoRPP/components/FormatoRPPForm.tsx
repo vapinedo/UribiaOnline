@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AutoGridRow } from '@shared/components/AutoGridRow';
+import { useFormAutoSave } from '@shared/hooks/useFormAutoSave';
 import { FormatoRPP } from '@feature/formatoRPP/models/FormatoRPP';
 import { CustomTextField } from '@shared/components/CustomTextField';
 import { FieldErrors, useForm, useFieldArray } from 'react-hook-form';
@@ -56,6 +57,7 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
 
   const { control, getValues, setValue, watch, register, formState, handleSubmit, reset } = form;
   const { errors, isSubmitting, isValid } = formState;
+  const { clearAutoSave } = useFormAutoSave(watch, reset, 'formatoRPPForm', modo);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -79,6 +81,8 @@ export default function FormatoRPPForm({ modo, formatoRPPId }: FormatoRPPFormPro
         navigate('/formatoRPPs');
       } catch (error) {
         console.error(error);
+      } finally {
+        clearAutoSave();
       }
     },
     [crearFormatoRPP, actualizarFormatoRPP, modo, navigate]

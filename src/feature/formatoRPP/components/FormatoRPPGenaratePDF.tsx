@@ -29,7 +29,7 @@ export async function FormatoRPPGenaratePDF(formData: FormatoRPP, logoUrl: strin
   // --- Datos generales ---
   page.drawText(`COMPONENTE: ${formData.nombreComponente}`, { x: 40, y: 750, size: 10, font });
   page.drawText(`ACTIVIDAD REALIZADA: ${formData.nombreActividad}`, { x: 40, y: 735, size: 10, font });
-  page.drawText(`MES: ${formData.fechaCreacion.getMonth() + 1}`, { x: 40, y: 720, size: 10, font });
+  // page.drawText(`MES: ${formData.fechaCreacion.getMonth() + 1}`, { x: 40, y: 720, size: 10, font });
   page.drawText(`PROFESIONAL: ${formData.profesionalResponsable}`, { x: 40, y: 705, size: 10, font });
 
   // --- Beneficiarios (en cuadrícula de 2x2 por ejemplo) ---
@@ -37,20 +37,28 @@ export async function FormatoRPPGenaratePDF(formData: FormatoRPP, logoUrl: strin
     y = 650;
   for (let i = 0; i < formData.beneficiarios.length; i++) {
     const b = formData.beneficiarios[i];
-    // Cargar foto
+    let imgTop = y - 240;
+    let imgHeight = 270;
+
+    // Dibuja la imagen
     if (b.fotos && b.fotos[0]) {
       const fotoBytes = await fetch(b.fotos[0]).then((res) => res.arrayBuffer());
       const fotoImage = await pdfDoc.embedJpg(fotoBytes);
-      page.drawImage(fotoImage, { x, y: y - 220, width: 130, height: 200 });
+      page.drawImage(fotoImage, { x, y: imgTop, width: 250, height: imgHeight });
     }
-    // Nombre y NIUP
-    page.drawText(`NOMBRE DEL BENEFICIARIO: ${b.nombre}`, { x, y: y - 230, size: 9, font });
-    page.drawText(`NIUP: ${b.niup}`, { x, y: y - 245, size: 9, font });
 
-    // Posicionar siguiente celda
+    // Dibuja los textos justo debajo de la imagen
+    const textY1 = imgTop - 15; // 15 puntos debajo de la imagen
+    const textY2 = imgTop - 30; // 30 puntos debajo de la imagen
+
+    page.drawText(`NOMBRE DEL BENEFICIARIO: ${b.nombre}`, { x, y: textY1, size: 9, font });
+    page.drawText(`NIUP: ${b.niup}`, { x, y: textY2, size: 9, font });
+
+    // Separación entre filas
     if ((i + 1) % 2 === 0) {
       x = 40;
-      y -= 160;
+      // Si es la primera fila, usa un salto mayor
+      y -= i === 1 ? 340 : 320;
     } else {
       x += 260;
     }
